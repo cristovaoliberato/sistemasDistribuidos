@@ -2,32 +2,29 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 
 
 @Getter
 @Setter
 @Entity
-public class Produto {
+public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
     @NotNull
     @NotBlank
-    private String titulo;
+    private String nome;
     @NotNull
-    @NotBlank
-    private String descricao;
-    @NotNull @DecimalMin("0.05")
-    private double preco;
-    @NotNull
-    private int estoque;
-    /**código de barras.**/
-    @NotNull
-    private String ean;
+    @NotBlank @CPF
+    private String cpf;
+    @Email
+    private String email;
 
 }
