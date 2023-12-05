@@ -30,8 +30,18 @@ public class ProdutoController {
                 .findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable long id) {
+        repository.findAndDelete(id);
+    }
     @PostMapping()
     public Produto insert(@RequestBody Produto produto){
+        return repository.save(produto);
+    }
+    @PutMapping("{id}")
+    public Produto update(@PathVariable long id, @RequestBody Produto produto){
+        var msg = "O ID informado não coincide com o ID do objeto passado";
+        if(id != produto.getId()) throw new ResponseStatusException(HttpStatus.CONFLICT, msg);
         return repository.save(produto);
     }
 }
